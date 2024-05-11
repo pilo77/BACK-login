@@ -1,5 +1,6 @@
 package com.example.loginback.Security.Authlogin.Config;
 
+import com.example.loginback.Security.Authlogin.Jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
