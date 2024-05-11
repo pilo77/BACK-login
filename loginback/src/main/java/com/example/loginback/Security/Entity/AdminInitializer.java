@@ -1,5 +1,6 @@
 package com.example.loginback.Security.Entity;
 
+import com.example.loginback.Security.IRepository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
