@@ -40,22 +40,29 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.getNombre())));
+        return List.of();
     }
+
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        Set<Authority> autoridades = new HashSet<>();
+        this.usuarioRoles.forEach(usuarioRol -> {
+            autoridades.add(new Authority(usuarioRol.getRol().getRolNombre()));
+        });
+        return autoridades;
     }
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return false;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return false;
     }
+
     @Override
     public boolean isEnabled() {
-        return true;
+        return false;
     }
 }
