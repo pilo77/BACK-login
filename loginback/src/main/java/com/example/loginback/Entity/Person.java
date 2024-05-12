@@ -26,7 +26,7 @@ public class Person {
 
 
     @Column(unique = true)
-    private String correoElectronico;
+    private String email;
 
     private String telefono;
 

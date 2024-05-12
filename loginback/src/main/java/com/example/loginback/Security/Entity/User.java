@@ -25,12 +25,12 @@ public class User implements UserDetails {
     Integer id;
     @Basic
     @Column(nullable = false)
-    String username;
+    private String username;
     @Column(nullable = false)
-    String lastname;
-    String firstname;
-    String country;
-    String password;
+    private String lastname;
+    private String firstname;
+    private String country;
+    private String password;
     @Enumerated(EnumType.STRING)
     Role role;
 
@@ -40,7 +40,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
+        return List.of(new SimpleGrantedAuthority((role.getNombre())));
     }
     @Override
     public boolean isAccountNonExpired() {

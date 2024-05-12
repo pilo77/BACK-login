@@ -1,4 +1,4 @@
-package com.example.loginback.Security.Entity;
+/**package com.example.loginback.Security.Entity;
 
 import com.example.loginback.Security.IRepository.UserRepository;
 import jakarta.annotation.PostConstruct;
