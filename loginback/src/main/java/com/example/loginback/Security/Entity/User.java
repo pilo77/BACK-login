@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private String country;
     private String password;
     @Enumerated(EnumType.STRING)
-    Role role;
+    Rol rol;
 
     @OneToOne
     @JoinColumn(name = "persona_id", referencedColumnName = "id")
