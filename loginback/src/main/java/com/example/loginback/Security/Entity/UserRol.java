@@ -22,5 +22,5 @@ public class UserRol {
     private User user;
 
     @ManyToOne
-    private Role rol;
+    private Rol rol;
 }

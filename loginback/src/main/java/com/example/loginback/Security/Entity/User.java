@@ -1,6 +1,7 @@
 package com.example.loginback.Security.Entity;
 
 import com.example.loginback.Entity.Person;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,8 +34,10 @@ public class User implements UserDetails {
     private String firstname;
     private String country;
     private String password;
-    @Enumerated(EnumType.STRING)
-    Rol rol;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario")
+    @JsonIgnore
+    private Set<UserRol> userRol = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "persona_id", referencedColumnName = "id")
