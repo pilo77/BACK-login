@@ -1,6 +1,19 @@
 package com.example.loginback.Security.Entity;
 
-public enum Role {
-    ADMIN,
-    USER
+import javax.persistence.*;
+
+import lombok.*;
+
+@Data
+@Entity
+@Table(name = "roles")
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "nombre")
+    private String nombre;
+
+    // Otros atributos y relaciones según sea necesario
 }
