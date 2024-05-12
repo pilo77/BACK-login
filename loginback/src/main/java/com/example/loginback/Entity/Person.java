@@ -24,17 +24,11 @@ public class Person {
     @Column(nullable = false)
     private String apellido;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
-
-    private String genero;
 
     @Column(unique = true)
     private String correoElectronico;
 
     private String telefono;
-
-    private String direccion;
 
     private String ciudad;
 

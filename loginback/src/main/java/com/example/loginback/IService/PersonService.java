@@ -1,4 +1,4 @@
-package com.example.loginback.Service;
+package com.example.loginback.IService;
 
 import com.example.loginback.Entity.Person;
 
