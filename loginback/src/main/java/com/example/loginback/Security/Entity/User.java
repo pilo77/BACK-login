@@ -11,7 +11,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -46,7 +48,7 @@ public class User implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         Set<Authority> autoridades = new HashSet<>();
-        this.usuarioRoles.forEach(usuarioRol -> {
+        this.userRoles.forEach(usuarioRol -> {
             autoridades.add(new Authority(usuarioRol.getRol().getRolNombre()));
         });
         return autoridades;
