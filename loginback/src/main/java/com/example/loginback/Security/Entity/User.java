@@ -1,5 +1,6 @@
 package com.example.loginback.Security.Entity;
 
+import com.example.loginback.Entity.Person;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,10 @@ public class User implements UserDetails {
     String password;
     @Enumerated(EnumType.STRING)
     Role role;
+
+    @OneToOne
+    @JoinColumn(name = "persona_id", referencedColumnName = "id")
+    private Person person;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
