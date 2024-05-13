@@ -39,9 +39,9 @@ public class User implements UserDetails {
     private String country;
     private String password;
 
-    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnore
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return usuarioRoles.stream()
