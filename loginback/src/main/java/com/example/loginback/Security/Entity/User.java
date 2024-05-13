@@ -35,22 +35,23 @@ public class User implements UserDetails {
     private String country;
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario")
-    @JsonIgnore
-    private Set<UserRol> userRol = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "persona_id", referencedColumnName = "id")
     private Person person;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Rol> userRoles = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Authority> autoridades = new HashSet<>();
-        this.userRol.forEach(userRol -> {
-            autoridades.add(new Authority(userRol.getRol().getRolNombre()));
-        });
-        return autoridades;
+        Set<Authority> authorities = new HashSet<>();
+        for (Rol userRole : userRoles) {
+            authorities.add(new Authority(userRole.getRolNombre()));
+        }
+        return authorities;
     }
 
     @Override

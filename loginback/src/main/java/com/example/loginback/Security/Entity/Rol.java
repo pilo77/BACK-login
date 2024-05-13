@@ -20,8 +20,10 @@ public class Rol {
     private Long rolId;
     private String rolNombre;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rol")
-    private Set<UserRol> userRol = new HashSet<>();
+    @OneToOne(mappedBy = "rol")
+    private User user;
+
+
 
     // Otros atributos y relaciones según sea necesario
 }

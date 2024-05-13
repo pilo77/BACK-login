@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -27,6 +29,10 @@ public class JwtService {
         extraClaims.put("firstName", user.getFirstname());
         extraClaims.put("lastName", user.getLastname());
         //extraClaims.put("role", user.getRole().name()); // Agregar el rol del usuario
+        List<String> roles = user.getRoles().stream()
+                .map(Role::getRoleNombre)
+                .collect(Collectors.toList());
+        extraClaims.put("roles", roles);
         return getToken(extraClaims, user.getUsername());
     }
 
