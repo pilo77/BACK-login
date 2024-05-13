@@ -4,6 +4,7 @@ package com.example.loginback.Security.Authlogin.Auth;
 import com.example.loginback.Security.Authlogin.Jwt.JwtService;
 import com.example.loginback.Security.Entity.Rol;
 import com.example.loginback.Security.Entity.User;
+import com.example.loginback.Security.Entity.UsuarioRol;
 import com.example.loginback.Security.IRepository.RolRepository;
 import com.example.loginback.Security.IRepository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -55,13 +56,16 @@ public class AuthService {
                 .country(request.getCountry())
                 .build();
 
+        // Buscar el rol "USER" en la base de datos
         Rol userRole = rolRepository.findByNombre("USER")
                 .orElseThrow(() -> new RuntimeException("El rol USER no existe"));
 
-        Set<Rol> roles = new HashSet<>();
-        roles.add(userRole);
+        // Crear una instancia de UsuarioRol con el constructor
+        UsuarioRol usuarioRol = new UsuarioRol(user, userRole);
 
-        user.setRol(roles);
+        // Agregar el usuarioRol al usuario
+        user.setUsuarioRoles(new HashSet<>()); // Inicializar el conjunto de roles
+        user.getUsuarioRoles().add(usuarioRol);
 
         userRepository.save(user);
 
