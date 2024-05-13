@@ -53,7 +53,7 @@ public class AuthService {
         // Asignar el rol USER al usuario
         Rol userRole = new Rol();
         userRole.setRolNombre("USER"); // Asignar el nombre del rol USER
-        userRole.getUser().add(user); // Agregar el usuario al rol
+
 
         // Guardar el usuario y el rol
         userRepository.save(user);
