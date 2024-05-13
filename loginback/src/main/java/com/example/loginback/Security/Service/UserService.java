@@ -3,6 +3,8 @@ package com.example.loginback.Security.Service;
 import com.example.loginback.Security.Dto.UserDTO;
 import com.example.loginback.Security.Entity.Rol;
 import com.example.loginback.Security.Entity.User;
+import com.example.loginback.Security.Entity.UsuarioRol;
+import com.example.loginback.Security.IRepository.RolRepository;
 import com.example.loginback.Security.IRepository.UserRepository;
 import com.example.loginback.Security.Request.UserRequest;
 import com.example.loginback.Security.Response.UserResponse;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final RolRepository rolRepository;
 
     @Transactional
     public UserResponse updateUser(UserRequest userRequest) {
@@ -32,48 +35,38 @@ public class UserService {
 
         // Actualizar el rol del usuario si se proporciona un nuevo rol
         if (userRequest.getRolNombre() != null) {
-            Optional<Rol> optionalRol = user.getRol().stream()
-                    .filter(rol -> rol.getNombre().equals(userRequest.getRolNombre())) // Compara el nombre del rol
-                    .findFirst();
-            if (optionalRol.isPresent()) {
-                Rol rol = optionalRol.get();
-                user.getRol().clear();
-                user.getRol().add(rol);
-            }
+            Rol rol = rolRepository.findByNombre(userRequest.getRolNombre())
+                    .orElseThrow(() -> new IllegalArgumentException("Rol no encontrado"));
+
+            user.getUsuarioRoles().clear(); // Eliminar roles anteriores
+            user.getUsuarioRoles().add(new UsuarioRol(user, rol));
         }
 
         userRepository.save(user);
 
         return new UserResponse("Los datos del usuario se actualizaron correctamente");
     }
+
     public UserDTO getUser(Integer id) {
-        User user = userRepository.findById(id).orElse(null);
-
-        if (user != null)//if
-        {
-            UserDTO userDTO = UserDTO.builder()
-                    .id(user.getId())
-                    .username(user.getUsername())
-                    .firstname(user.getFirstname())
-                    .lastname(user.getLastname())
-                    .country(user.getCountry())
-                    .build();
-            return userDTO;
-        }
-        return null;
-    }
-
-    public List<UserDTO> getAllUsers() {
-        List<User> users = userRepository.findAll(); // Obtener todos los usuarios
-
-        return users.stream() // Transformar la lista de usuarios a UserDTO
+        return userRepository.findById(id)
                 .map(user -> UserDTO.builder()
                         .id(user.getId())
                         .username(user.getUsername())
                         .firstname(user.getFirstname())
                         .lastname(user.getLastname())
                         .country(user.getCountry())
+                        .build())
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+    }
 
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream() // Obtener todos los usuarios
+                .map(user -> UserDTO.builder()
+                        .id(user.getId())
+                        .username(user.getUsername())
+                        .firstname(user.getFirstname())
+                        .lastname(user.getLastname())
+                        .country(user.getCountry())
                         .build())
                 .collect(Collectors.toList());
     }
