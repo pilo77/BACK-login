@@ -64,6 +64,7 @@ public class AuthService {
         UsuarioRol usuarioRol = new UsuarioRol(user, userRole);
 
         // Agregar el usuarioRol al usuario
+        user.setUsuarioRoles(new HashSet<>()); // Inicializar el conjunto de roles
         user.getUsuarioRoles().add(usuarioRol);
 
         userRepository.save(user);
