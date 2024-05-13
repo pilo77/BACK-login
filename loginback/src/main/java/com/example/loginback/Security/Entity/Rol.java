@@ -3,7 +3,7 @@ package com.example.loginback.Security.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
+
 
 
 @Data

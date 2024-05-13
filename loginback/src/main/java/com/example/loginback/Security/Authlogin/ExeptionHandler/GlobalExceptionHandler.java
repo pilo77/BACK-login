@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
 
-    @ExceptionHandler(JwtAuthenticationException.class)
-    public ResponseEntity<String> handleJwtAuthenticationException(JwtAuthenticationException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
-    }
-
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handlerArgumentException(IllegalArgumentException ex) {

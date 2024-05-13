@@ -1,7 +1,6 @@
 package com.example.loginback.Security.Authlogin.Jwt;
 
 
-import com.example.loginback.Security.Authlogin.ExeptionHandler.JwtAuthenticationException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,8 +33,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String token = getTokenFromRequest(request);
 
-        try {
-            if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+        if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 String username = jwtService.getUsernameFromToken(token);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
@@ -49,15 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
-        } catch (JwtAuthenticationException e) {
-            // Manejar excepción de autenticación JWT
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        } catch (Exception e) {
-            // Manejar otras excepciones
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return;
-        }
+
 
         filterChain.doFilter(request, response);
     }
