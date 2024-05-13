@@ -26,6 +26,11 @@ public class UsuarioRol {
     @JoinColumn(name = "rol_id", referencedColumnName = "id")
     private Rol rol;
 
+    public UsuarioRol(User user, Rol rol) {
+        this.user = user;
+        this.rol = rol;
+    }
+
 
     // Otros atributos y relaciones según sea necesario
 }
