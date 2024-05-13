@@ -1,19 +1,17 @@
 package com.example.loginback.Security.Entity;
 
+import com.example.loginback.Security.IRepository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.example.loginback.Security.Entity.Rol;
-import com.example.loginback.Security.IRepository.RolRepository;
-
 @Component
-public class DatabaseInitializer implements CommandLineRunner {
+public class RolDatabaseInitializer implements CommandLineRunner {
 
     private final RolRepository rolRepository;
 
     @Autowired
-    public DatabaseInitializer(RolRepository rolRepository) {
+    public RolDatabaseInitializer(RolRepository rolRepository) {
         this.rolRepository = rolRepository;
     }
 
