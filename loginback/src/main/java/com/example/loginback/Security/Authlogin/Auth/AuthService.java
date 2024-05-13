@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -40,13 +41,12 @@ public class AuthService {
 
 
 
+
     public AuthResponse register(RegisterRequest request) {
-        // Verificar si el usuario ya existe
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new IllegalArgumentException("El nombre de usuario ya está en uso");
         }
 
-        // Crear un nuevo usuario
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -55,13 +55,14 @@ public class AuthService {
                 .country(request.getCountry())
                 .build();
 
-        // Recuperar el rol USER de la base de datos
-        Rol userRole = rolRepository.findByNombre("USER").orElseThrow(() -> new RuntimeException("El rol USER no existe"));
+        Rol userRole = rolRepository.findByNombre("USER")
+                .orElseThrow(() -> new RuntimeException("El rol USER no existe"));
 
-        // Asignar el rol al usuario
-        user.getRol().add(userRole);
+        Set<Rol> roles = new HashSet<>();
+        roles.add(userRole);
 
-        // Guardar el usuario
+        user.setRol(roles);
+
         userRepository.save(user);
 
         return AuthResponse.builder()
