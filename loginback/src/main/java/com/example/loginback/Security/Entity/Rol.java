@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @Builder
@@ -17,8 +15,8 @@ import java.util.Set;
 public class Rol {
 
     @Id
-    private Long rolId;
-    private String rolNombre;
+    private Long id;
+    private String nombre;
 
     @OneToOne(mappedBy = "rol")
     private User user;

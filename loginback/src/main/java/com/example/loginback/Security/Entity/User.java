@@ -42,14 +42,14 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Rol> userRoles = new HashSet<>();
+    private Set<Rol> rol = new HashSet<>();
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Authority> authorities = new HashSet<>();
-        for (Rol userRole : userRoles) {
-            authorities.add(new Authority(userRole.getRolNombre()));
+        for (Rol rol : rol) {
+            authorities.add(new Authority(rol.getNombre()));
         }
         return authorities;
     }

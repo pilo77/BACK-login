@@ -1,7 +1,7 @@
 package com.example.loginback.Security.Service;
 
 import com.example.loginback.Security.Dto.UserDTO;
-import com.example.loginback.Security.Entity.Role;
+import com.example.loginback.Security.Entity.Rol;
 import com.example.loginback.Security.Entity.User;
 import com.example.loginback.Security.IRepository.UserRepository;
 import com.example.loginback.Security.Request.UserRequest;
@@ -11,30 +11,44 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
     @Transactional
     public UserResponse updateUser(UserRequest userRequest) {
+        User user = userRepository.findById(userRequest.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
-        User user = User.builder()
-                .id(userRequest.getId())
-                .firstname(userRequest.getFirstname())
-                .lastname(userRequest.getLastname())
-                .country(userRequest.getCountry())
-                .role(Role.USER)
-                .build();
+        user.setFirstname(userRequest.getFirstname());
+        user.setLastname(userRequest.getLastname());
+        user.setCountry(userRequest.getCountry());
 
-        userRepository.updateUser(user.getId(), user.getFirstname(), user.getLastname(), user.getCountry());
+        // Obtener el rol del usuario o crear uno nuevo si es necesario
+        Set<Rol> roles = user.getRol();
+        if (roles == null) {
+            roles = new HashSet<>(); // Crear un nuevo conjunto de roles
+        }
 
-        return new UserResponse("El usuario se registró satisfactoriamente");
+        // Crear un nuevo rol y asignarle el nombre
+        Rol rol = new Rol();
+        rol.setNombre(userRequest.getRolNombre()); // Aquí utilizas el método getRolNombre()
+
+        // Agregar el nuevo rol al conjunto de roles del usuario
+        roles.add(rol);
+
+        // Asignar el conjunto de roles actualizado al usuario
+        user.setRol(roles);
+
+        userRepository.save(user);
+
+        return new UserResponse("Los datos del usuario se actualizaron correctamente");
     }
-
     public UserDTO getUser(Integer id) {
         User user = userRepository.findById(id).orElse(null);
 
