@@ -5,12 +5,10 @@ import ClientePage from '../views/ClientePage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import DasboardPage from '../views/DasboardPage.vue'
 import ProductoPage from '@/views/ProductoPage.vue';
-import CiudadPage from '@/views/CiudadPage.vue';
-import PaisPage from '@/views/PaisPage.vue';
-import DepartamentoPage from '@/views/DepartamentoPage.vue';
 import NotaPage from '@/views/NotaPage.vue';
 import UpdateNotaPage from '@/views/UpdateNotapage.vue';
 import ProximoPage from '@/views/ProximoPage.vue';
+import AdministradorPage from '@/views/AdministradorPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -42,21 +40,6 @@ const routes: Array<RouteRecordRaw> = [
     component: ProductoPage
   },
   {
-    path: '/ciudad',
-    name: 'ciudad',
-    component: CiudadPage
-  },
-  {
-    path: '/pais',
-    name: 'pais',
-    component: PaisPage
-  },
-  {
-    path: '/departamento',
-    name: 'departamento',
-    component: DepartamentoPage
-  },
-  {
     path: '/nota',
     name:'nota',
     component: NotaPage
@@ -70,6 +53,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/proximo',
     name: 'proximo',
     component: ProximoPage
+  },
+  {
+    path: '/administrador',
+    name: 'administradaor',
+    component: AdministradorPage
   }
 ]
 
