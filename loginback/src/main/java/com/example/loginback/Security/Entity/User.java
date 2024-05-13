@@ -38,14 +38,13 @@ public class User implements UserDetails {
 
 
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Rol> rol = new HashSet<>();
+    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return rol.stream()
-                .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
+        return usuarioRoles.stream()
+                .map(usuarioRol -> new Authority(usuarioRol.getRol().getNombre()))
                 .collect(Collectors.toList());
     }
 
