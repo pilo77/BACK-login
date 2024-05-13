@@ -18,9 +18,9 @@ public class Rol {
     private Long id;
     private String nombre;
 
-    @OneToOne(mappedBy = "rol")
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
 
 
     // Otros atributos y relaciones según sea necesario

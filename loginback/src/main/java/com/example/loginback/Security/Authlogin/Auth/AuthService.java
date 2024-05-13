@@ -11,6 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -54,6 +56,8 @@ public class AuthService {
         Rol userRole = new Rol();
         userRole.setNombre("USER"); // Asignar el nombre del rol USER
 
+        // Aquí asignamos el rol al usuario
+        user.setRol(Set.of(userRole));
 
         // Guardar el usuario y el rol
         userRepository.save(user);

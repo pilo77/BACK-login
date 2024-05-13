@@ -45,8 +45,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return rol.stream()
-                .map(Rol::getNombre)
-                .map(SimpleGrantedAuthority::new)
+                .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
                 .collect(Collectors.toList());
     }
 
