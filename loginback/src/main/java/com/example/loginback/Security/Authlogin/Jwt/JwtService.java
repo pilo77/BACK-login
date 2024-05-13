@@ -31,7 +31,7 @@ public class JwtService {
         claims.put("firstName", user.getFirstname());
         claims.put("lastName", user.getLastname());
         List<String> roles = user.getRol().stream()
-                .map(Rol::getNombre)
+                .map(role -> role.getNombre())
                 .collect(Collectors.toList());
         claims.put("roles", roles);
         return getToken(claims, user.getUsername());
