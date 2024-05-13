@@ -36,10 +36,10 @@ public class User implements UserDetails {
     private String country;
     private String password;
 
-
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
+
+    // No es necesario definir un constructor vacío manualmente, Lombok lo hace por ti
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -68,4 +68,3 @@ public class User implements UserDetails {
         return false;
     }
 }
-
