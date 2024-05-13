@@ -2,7 +2,6 @@ package com.example.loginback.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 

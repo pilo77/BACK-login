@@ -1,10 +1,11 @@
-/**package com.example.loginback.Security.Entity;
+package com.example.loginback.Security.Entity;
 
 import com.example.loginback.Security.IRepository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
 
 @Component
 @RequiredArgsConstructor
@@ -16,15 +17,22 @@ public class AdminInitializer {
     @PostConstruct
     public void createAdminIfNotExist() {
         if (userRepository.findByUsername("admin").isEmpty()) {
-            User admin = User.builder()
-                    .username("admin")
-                    .password(passwordEncoder.encode("strongPassword")) // Encriptar la contraseña
-                    .firstname("Admin")
-                    .lastname("Administrator")
-                    .role(Role.ADMIN) // Asignar el rol ADMIN
-                    .build();
+            // Crear el usuario
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder.encode("strongPassword")); // Encriptar la contraseña
+            admin.setFirstname("Admin");
+            admin.setLastname("Administrator");
 
-            userRepository.save(admin); // Guardar el administrador
+            Rol adminRol = new Rol();
+            adminRol.setNombre("ADMIN");
+
+            // Asignar el rol al usuario
+            admin.getRol().add(adminRol);
+
+            // Guardar el usuario
+            userRepository.save(admin);
+
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.loginback.Security.Authlogin.Config;
 
-import javax.servlet.http.HttpServletResponse;
+
 import com.example.loginback.Security.Authlogin.Jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,17 +23,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
-                .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/api/v1/user/**").hasRole("ADMIN")
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                .csrf(csrf ->
+                        csrf
+                                .disable())
+                .authorizeHttpRequests(authRequest ->
+                        authRequest
+
+
+                                .requestMatchers("/auth/**").permitAll()
+                                .anyRequest().authenticated()
                 )
-                .sessionManagement(sessionManagement -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(sessionManager ->
+                        sessionManager
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .authenticationEntryPoint((request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
                 .build();
+
+
     }
+
 }
