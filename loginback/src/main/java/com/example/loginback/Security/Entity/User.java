@@ -39,9 +39,8 @@ public class User implements UserDetails {
     private String country;
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UsuarioRol> usuarioRoles; // No necesitas inicializarlo aquí, se inicializará en el constructor generado por Lombok
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<UsuarioRol> usuarioRoles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
