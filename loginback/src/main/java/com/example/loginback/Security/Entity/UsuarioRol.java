@@ -25,6 +25,11 @@ public class UsuarioRol {
     @ManyToOne
     private Rol rol;
 
+    public UsuarioRol(User usuario, Rol rol) {
+        this.usuario = usuario;
+        this.rol = rol;
+    }
+
 
     // Otros atributos y relaciones según sea necesario
 }
