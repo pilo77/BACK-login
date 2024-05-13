@@ -15,15 +15,13 @@ import java.util.Set;
 @Entity
 @Table(name = "rol")
 public class Rol {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Id
+    private Long rolId;
+    private String rolNombre;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rol")
-    private Set<UserRol> usuarioRoles = new HashSet<>();
+    private Set<UserRol> userRol = new HashSet<>();
 
     // Otros atributos y relaciones según sea necesario
 }

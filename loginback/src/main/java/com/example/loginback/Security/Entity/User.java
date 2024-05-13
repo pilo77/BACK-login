@@ -43,19 +43,21 @@ public class User implements UserDetails {
     @JoinColumn(name = "persona_id", referencedColumnName = "id")
     private Person person;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        Set<Authority> autoridades = new HashSet<>();
+        this.userRol.forEach(userRol -> {
+            autoridades.add(new Authority(userRol.getRol().getRolNombre()));
+        });
+        return autoridades;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        Set<Authority> autoridades = new HashSet<>();
-        this.userRoles.forEach(usuarioRol -> {
-            autoridades.add(new Authority(usuarioRol.getRol().getRolNombre()));
-        });
-        return autoridades;
+        return false;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return false;
@@ -71,3 +73,4 @@ public class User implements UserDetails {
         return false;
     }
 }
+

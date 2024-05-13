@@ -26,7 +26,7 @@ public class JwtService {
         extraClaims.put("userId", user.getId());
         extraClaims.put("firstName", user.getFirstname());
         extraClaims.put("lastName", user.getLastname());
-        extraClaims.put("role", user.getRole().name()); // Agregar el rol del usuario
+        //extraClaims.put("role", user.getRole().name()); // Agregar el rol del usuario
         return getToken(extraClaims, user.getUsername());
     }
 
