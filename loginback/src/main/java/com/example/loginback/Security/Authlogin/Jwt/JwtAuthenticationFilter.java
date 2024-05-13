@@ -1,6 +1,7 @@
 package com.example.loginback.Security.Authlogin.Jwt;
 
 
+import com.example.loginback.Security.Authlogin.ExeptionHandler.JwtAuthenticationException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+import io.jsonwebtoken.JwtException;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -30,29 +33,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         final String token = getTokenFromRequest(request);
-        final String username;
 
-        if (token == null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        try {
+            if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                String username = jwtService.getUsernameFromToken(token);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        username = jwtService.getUsernameFromToken(token);
+                if (jwtService.isTokenValid(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities());
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            if (jwtService.isTokenValid(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities());
-
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
-
+        } catch (JwtAuthenticationException e) {
+            // Manejar excepción de autenticación JWT
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        } catch (Exception e) {
+            // Manejar otras excepciones
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
         }
 
         filterChain.doFilter(request, response);
@@ -66,6 +70,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
-
-
 }
