@@ -22,16 +22,19 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue
-    Integer id;
-    @Basic
+    private Integer id;
+
     @Column(nullable = false)
     private String username;
+
     @Column(nullable = false)
     private String lastname;
+
     private String firstname;
     private String country;
     private String password;
@@ -39,32 +42,30 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
-    // No es necesario definir un constructor vacío manualmente, Lombok lo hace por ti
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return usuarioRoles.stream()
-                .map(usuarioRol -> new Authority(usuarioRol.getRol().getNombre()))
+                .map(usuarioRol -> new SimpleGrantedAuthority(usuarioRol.getRol().getNombre()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true; // La cuenta nunca expira
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true; // La cuenta nunca está bloqueada
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true; // Las credenciales nunca expiran
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true; // La cuenta siempre está habilitada
     }
 }
