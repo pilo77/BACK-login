@@ -40,7 +40,8 @@ public class User implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
+    private Set<UsuarioRol> usuarioRoles; // No necesitas inicializarlo aquí, se inicializará en el constructor generado por Lombok
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
