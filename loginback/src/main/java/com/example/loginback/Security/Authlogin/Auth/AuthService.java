@@ -4,6 +4,7 @@ package com.example.loginback.Security.Authlogin.Auth;
 import com.example.loginback.Security.Authlogin.Jwt.JwtService;
 import com.example.loginback.Security.Entity.Rol;
 import com.example.loginback.Security.Entity.User;
+import com.example.loginback.Security.IRepository.RolRepository;
 import com.example.loginback.Security.IRepository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final RolRepository rolRepository;
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(
@@ -37,13 +39,14 @@ public class AuthService {
     }
 
 
+
     public AuthResponse register(RegisterRequest request) {
         // Verificar si el usuario ya existe
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new IllegalArgumentException("El nombre de usuario ya está en uso");
         }
 
-        // Crear un nuevo usuario con el rol USER
+        // Crear un nuevo usuario
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -52,16 +55,14 @@ public class AuthService {
                 .country(request.getCountry())
                 .build();
 
-        // Asignar el rol USER al usuario
-        Rol userRole = new Rol();
-        userRole.setNombre("USER"); // Asignar el nombre del rol USER
+        // Recuperar el rol USER de la base de datos
+        Rol userRole = rolRepository.findByNombre("USER").orElseThrow(() -> new RuntimeException("El rol USER no existe"));
 
-        // Aquí asignamos el rol al usuario
-        user.setRol(Set.of(userRole));
+        // Asignar el rol al usuario
+        user.getRol().add(userRole);
 
-        // Guardar el usuario y el rol
+        // Guardar el usuario
         userRepository.save(user);
-        // No es necesario guardar el rol ya que se guarda automáticamente con el usuario
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(user))
