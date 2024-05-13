@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class AdminInitializer {
@@ -38,7 +39,7 @@ public class AdminInitializer {
             });
 
             // Assign the ADMIN role to the user
-            admin.getRol().add(adminRole);
+            admin.getUsuarioRoles().add(new UsuarioRol(admin, adminRole));
 
             // Save the user
             userRepository.save(admin);
