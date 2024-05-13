@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -36,22 +37,17 @@ public class User implements UserDetails {
     private String password;
 
 
-    @OneToOne
-    @JoinColumn(name = "persona_id", referencedColumnName = "id")
-    private Person person;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Rol> rol = new HashSet<>();
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Authority> authorities = new HashSet<>();
-        for (Rol rol : rol) {
-            authorities.add(new Authority(rol.getNombre()));
-        }
-        return authorities;
+        return rol.stream()
+                .map(Rol::getNombre)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override
