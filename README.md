@@ -1,4 +1,4 @@
-# jwt-auth-login app
+# ReminderG app
 
 # BACKEND:  JWT Authentication Project (Spring Boot)
 
