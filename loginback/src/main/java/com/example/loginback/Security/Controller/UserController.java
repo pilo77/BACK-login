@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-
 @RestController
 @PreAuthorize("hasRole('ADMIN')")
 @RequestMapping(value = "/api/v1/user")
@@ -27,7 +26,6 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class UserController {
-
     private final UserService userService;
 
     @GetMapping("/all")

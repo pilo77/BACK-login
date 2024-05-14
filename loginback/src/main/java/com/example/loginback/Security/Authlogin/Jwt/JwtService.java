@@ -1,6 +1,5 @@
 package com.example.loginback.Security.Authlogin.Jwt;
 
-import com.example.loginback.Security.Entity.Rol;
 
 import com.example.loginback.Security.Entity.User;
 import io.jsonwebtoken.Claims;
@@ -26,15 +25,12 @@ public class JwtService {
     private String SECRET_KEY;
 
     public String getToken(User user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());
-        claims.put("firstName", user.getFirstname());
-        claims.put("lastName", user.getLastname());
-        List<String> roles = user.getUsuarioRoles().stream() // Cambiado de user.getRol() a user.getUsuarioRoles()
-                .map(usuarioRol -> usuarioRol.getRol().getRolNombre()) // Acceder al rol a través de UsuarioRol
-                .collect(Collectors.toList());
-        claims.put("roles", roles);
-        return getToken(claims, user.getUsername());
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("userId", user.getId());
+        extraClaims.put("firstName", user.getFirstname());
+        extraClaims.put("lastName", user.getLastname());
+        extraClaims.put("role", user.getRole().name()); // Agregar el rol del usuario
+        return getToken(extraClaims, user.getUsername());
     }
 
     private String getToken(Map<String, Object> claims, String subject) {

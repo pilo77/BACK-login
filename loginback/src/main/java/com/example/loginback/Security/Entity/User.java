@@ -24,48 +24,38 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue
-    private Integer id;
-
+    Integer id;
+    @Basic
     @Column(nullable = false)
-    private String username;
-
+    String username;
     @Column(nullable = false)
-    private String lastname;
+    String lastname;
+    String firstname;
+    String country;
+    String password;
+    @Enumerated(EnumType.STRING)
+    Role role;
 
-    private String firstname;
-    private String country;
-    private String password;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    @JsonIgnore
-    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return usuarioRoles.stream()
-                .map(usuarioRol -> new SimpleGrantedAuthority(usuarioRol.getRol().getRolNombre()))
-                .collect(Collectors.toList());
+        return List.of(new SimpleGrantedAuthority((role.name())));
     }
-
     @Override
     public boolean isAccountNonExpired() {
-        return true; // La cuenta nunca expira
+        return true;
     }
-
     @Override
     public boolean isAccountNonLocked() {
-        return true; // La cuenta nunca está bloqueada
+        return true;
     }
-
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Las credenciales nunca expiran
+        return true;
     }
-
     @Override
     public boolean isEnabled() {
-        return true; // La cuenta siempre está habilitada
+        return true;
     }
 }
