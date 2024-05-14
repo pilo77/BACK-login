@@ -25,16 +25,17 @@ public class UserService {
     @Transactional
     public UserResponse updateUser(UserRequest userRequest) {
 
+        // Construir el objeto User usando el builder
         User user = User.builder()
                 .id(userRequest.getId())
                 .firstname(userRequest.getFirstname())
                 .lastname(userRequest.getLastname())
                 .country(userRequest.getCountry())
-                .role(Role.USER)
+                .role(userRequest.getRole())
                 .build();
 
-        userRepository.updateUser(user.getId(), user.getFirstname(), user.getLastname(), user.getCountry());
-
+        // Llamar al método updateUser del repositorio con el usuario construido
+        userRepository.updateUser(user);
         return new UserResponse("El usuario se registró satisfactoriamente");
     }
 

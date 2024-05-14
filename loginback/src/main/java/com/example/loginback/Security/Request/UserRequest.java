@@ -1,5 +1,6 @@
 package com.example.loginback.Security.Request;
 
+import com.example.loginback.Security.Entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +16,6 @@ public class UserRequest {
     String firstname;
     String lastname;
     String country;
+    Role role;
 
 }
