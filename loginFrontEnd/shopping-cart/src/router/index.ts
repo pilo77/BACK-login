@@ -9,6 +9,8 @@ import NotaPage from '@/views/NotaPage.vue';
 import UpdateNotaPage from '@/views/UpdateNotapage.vue';
 import ProximoPage from '@/views/ProximoPage.vue';
 import AdministradorPage from '@/views/AdministradorPage.vue';
+import EditarClientePage from '@/views/EditarClientePage.vue';
+import EliminarClientePage from '@/views/EliminarClientePage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -58,6 +60,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/administrador',
     name: 'administradaor',
     component: AdministradorPage
+  },
+  {
+    path: '/editarUser',
+    name: 'editarUser',
+    component: EditarClientePage
+  },
+  {
+    path: '/eliminarUser',
+    name: 'eliminarUser',
+    component: EliminarClientePage
   }
 ]
 
