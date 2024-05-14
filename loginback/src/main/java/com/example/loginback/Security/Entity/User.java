@@ -39,13 +39,13 @@ public class User implements UserDetails {
     private String country;
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<UsuarioRol> usuarioRoles;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnore
+    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return usuarioRoles.stream()
-                .map(usuarioRol -> new SimpleGrantedAuthority(usuarioRol.getRol().getNombre()))
+                .map(usuarioRol -> new SimpleGrantedAuthority(usuarioRol.getRol().getRolNombre()))
                 .collect(Collectors.toList());
     }
 

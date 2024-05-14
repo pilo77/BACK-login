@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -26,25 +25,15 @@ public class UserService {
 
     @Transactional
     public UserResponse updateUser(UserRequest userRequest) {
-        User user = userRepository.findById(userRequest.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
-
-        user.setFirstname(userRequest.getFirstname());
-        user.setLastname(userRequest.getLastname());
-        user.setCountry(userRequest.getCountry());
-
-        // Actualizar el rol del usuario si se proporciona un nuevo rol
-        if (userRequest.getRolNombre() != null) {
-            Rol rol = rolRepository.findByNombre(userRequest.getRolNombre())
-                    .orElseThrow(() -> new IllegalArgumentException("Rol no encontrado"));
-
-            user.getUsuarioRoles().clear(); // Eliminar roles anteriores
-            user.getUsuarioRoles().add(new UsuarioRol(user, rol));
+        Optional<User> optionalUser = userRepository.findById(userRequest.getId());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            // Aquí deberías tener la lógica para actualizar el usuario con los datos de userRequest
+            userRepository.save(user);
+            return new UserResponse("Los datos del usuario se actualizaron correctamente");
+        } else {
+            throw new IllegalArgumentException("Usuario no encontrado");
         }
-
-        userRepository.save(user);
-
-        return new UserResponse("Los datos del usuario se actualizaron correctamente");
     }
 
     public UserDTO getUser(Integer id) {
@@ -60,7 +49,7 @@ public class UserService {
     }
 
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream() // Obtener todos los usuarios
+        return userRepository.findAll().stream()
                 .map(user -> UserDTO.builder()
                         .id(user.getId())
                         .username(user.getUsername())

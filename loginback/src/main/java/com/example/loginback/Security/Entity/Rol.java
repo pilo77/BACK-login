@@ -16,12 +16,12 @@ import java.util.Set;
 @Table(name = "rol")
 public class Rol {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombre;
 
-    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UsuarioRol> usuarioRoles;
-    // Otros atributos y relaciones según sea necesario
+    @Id
+    private Long rolId;
+    private String rolNombre;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rol")
+    private Set<UsuarioRol> usuarioRoles = new HashSet<>();
+
 }
