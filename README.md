@@ -17,6 +17,8 @@ Technologies used:
 
 *Carlos Andres Villamil* - [LinkedIn](www.linkedin.com/in/pilo77)
 
+
+
 # FRONTEND JWT Authentication Project (Ionic -Vue)
 
 This project demonstrates how to implement a JWT Authentication functionality in an Ionic application.
