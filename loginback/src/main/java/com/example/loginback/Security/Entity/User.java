@@ -1,5 +1,6 @@
 package com.example.loginback.Security.Entity;
 
+import com.example.loginback.Entity.Categoria;
 import com.example.loginback.Entity.Person;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -37,6 +38,10 @@ public class User implements UserDetails {
     String password;
     @Enumerated(EnumType.STRING)
     Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Categoria> categorias;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
