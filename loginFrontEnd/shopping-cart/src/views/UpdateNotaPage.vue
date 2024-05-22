@@ -5,11 +5,11 @@
           <ion-title>Actualizar Nota</ion-title>
         </ion-toolbar>
       </ion-header>  
+      <SeachComponent></SeachComponent>
       <ion-content>       
         <div id="login-container">  
           <div id="login-form">
-            <NotaComponent></NotaComponent>
-                  
+            <NotaComponent></NotaComponent>    
         </div>
         <div>
             <TimeComponent></TimeComponent>
@@ -17,6 +17,7 @@
         <h2>
             <ButtonComponent id="registrar" value="Guardar cambios"  color= "success"></ButtonComponent>
             <ButtonComponent id="editar" value="Eliminar" color="danger" ></ButtonComponent>
+            <ButtonComponent id="select" value="Atras" expand="full" color="danger" @click="atras"></ButtonComponent>
         </h2>
         </div>
       </ion-content>
@@ -28,6 +29,11 @@
   import ButtonComponent from '@/components/ButtonComponent.vue';
   import NotaComponent from '@/components/NotaComponent.vue';
   import TimeComponent from '@/components/TimeComponent.vue';
+import SeachComponent from '@/components/SeachComponent.vue';
+
+  const atras = () => {
+    window.location.href = "/Dashboard"
+  }
   </script>
   
   <style scoped src="../theme/container.css"></style>
