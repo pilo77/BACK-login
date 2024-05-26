@@ -16,7 +16,7 @@
         </div>
         <div class="login-button">
           <ButtonComponent id="login" value="Iniciar Sesión" expand="full" @click="login" />
-          <ButtonComponent id="forgotPassword" value="Crear Cuenta" expand="full" />
+          <ButtonComponent id="forgotPassword" value="Crear Cuenta" expand="full" @click= "newUser"/>
         </div>
       </div>
     </ion-page>
@@ -27,7 +27,7 @@
   import { IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
   import ButtonComponent from '@/components/ButtonComponent.vue';
   import InputComponent from '@/components/InputComponent.vue';
-  
+
   const user = ref('');
   const password = ref('');
   
@@ -41,6 +41,12 @@
       console.log('Credenciales inválidas');
     }
   };
+
+  const newUser = () => {
+     window.location.href = "/cliente"
+  }
+
+
   </script>
   
   <style scoped src="../theme/login.css"></style>

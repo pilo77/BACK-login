@@ -9,24 +9,25 @@
     <ion-content>
       <br>
       <div id="container">
-        <strong><a href="/cliente">Ir a Clientes</a></strong>
+        <strong><a href="/nota">Crear Nota</a></strong>
         <br>
-        <strong><a href="/producto">Ir a productos</a></strong>
+        <strong><a href="/proximo">Notas Creadas</a></strong>
         <br>
-        <strong><a href="/departamento">Ir a Departamento</a></strong>
-        <br>
-        <strong><a href="/pais">Ir a Pais</a></strong>
-        <br>
-        <strong><a href="/ciudad">Ir a Ciudad</a></strong>
-
+      
       </div>
 
     </ion-content>
+    <ButtonComponent id="select" value= "atras" expand ="full" color="danger" @click="atras"></ButtonComponent>
   </ion-page>
+
 </template>
 
 <script setup lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import ButtonComponent from '@/components/ButtonComponent.vue';
+const atras = () => {
+     window.location.href = "/login"
+  }
 </script>
 
-<style scoped></style>
+<style scoped src="../theme/login.css"></style>
