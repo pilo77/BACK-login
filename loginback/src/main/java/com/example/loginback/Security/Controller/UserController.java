@@ -18,14 +18,14 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping(value = "/api/v1/user")
+@RequestMapping(value = "/api/user")
 
 @RequiredArgsConstructor
 
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/all")
+    @GetMapping()
 
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers(); // Asegúrate de obtener la lista de usuarios
