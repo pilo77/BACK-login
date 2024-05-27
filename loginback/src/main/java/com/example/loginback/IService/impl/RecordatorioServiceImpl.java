@@ -16,7 +16,7 @@ public class RecordatorioServiceImpl implements RecordatorioService {
 
     @Override
     public List<Recordatorio> findAll() {
-        return recordatorioRepository.findAll();
+        return recordatorioRepository.findAllActive();
     }
 
     @Override
@@ -46,12 +46,15 @@ public class RecordatorioServiceImpl implements RecordatorioService {
 
     @Override
     public Long countRecordatorios() {
-        return recordatorioRepository.count();
+        return recordatorioRepository.countActiveRecordatorios();
     }
 
     @Override
     public void delete(Long id) {
-        recordatorioRepository.deleteById(id);
-
+        Optional<Recordatorio> recordatorio = recordatorioRepository.findById(id);
+        recordatorio.ifPresent(r -> {
+            r.desactivar();
+            recordatorioRepository.save(r);
+        });
     }
 }

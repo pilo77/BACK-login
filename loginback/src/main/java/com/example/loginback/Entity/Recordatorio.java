@@ -35,5 +35,8 @@ public class Recordatorio {
     @JoinColumn(name = "categoria", nullable = false)
     private Categoria categoria;
 
+    public void desactivar() {
+        this.activo = false;
+    }
 
 }
