@@ -3,6 +3,7 @@ package com.example.loginback.IService.impl;
 import com.example.loginback.Entity.Categoria;
 import com.example.loginback.IRepository.CategoriaRepository;
 import com.example.loginback.IService.CategoriaService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     private CategoriaRepository categoriaRepository;
 
+    @Transactional
+
     @Override
     public List<Categoria> findAll() {
+
         return categoriaRepository.findAll();
     }
 
@@ -28,6 +32,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public Optional<Categoria> findById(Long id) {
+
         return categoriaRepository.findById(id);
     }
 
@@ -47,6 +52,6 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public void delete(Long id) {
-
+        categoriaRepository.deleteById(id);
     }
 }

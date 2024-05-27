@@ -1,4 +1,4 @@
-package com.example.loginback.Security.Response;
+package com.example.loginback.Security.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.example.loginback.Security.Request;
+package com.example.loginback.Security.Dto;
 
 import com.example.loginback.Security.Entity.Role;
 import lombok.AllArgsConstructor;
