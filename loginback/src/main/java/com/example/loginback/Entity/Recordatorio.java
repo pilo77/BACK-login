@@ -32,5 +32,8 @@ public class Recordatorio {
     private boolean activo;//si esta activo o inactivo el recordatorio
 
 
+    public void desactivar() {
+        this.activo = false;
+    }
 
 }
