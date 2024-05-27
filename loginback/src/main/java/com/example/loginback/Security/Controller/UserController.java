@@ -23,10 +23,10 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class UserController {
+
     private final UserService userService;
 
     @GetMapping()
-
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers(); // Asegúrate de obtener la lista de usuarios
         return ResponseEntity.ok(users); // Devuelve la lista de usuarios

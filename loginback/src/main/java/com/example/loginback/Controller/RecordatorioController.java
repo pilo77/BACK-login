@@ -23,8 +23,16 @@ public class RecordatorioController {
 
     private final RecordatorioService recordatorioService;
 
-    @Operation(summary = "Mostrar todos los recordatorios")
-    @GetMapping("/recordatorios")
+
+    @Operation(summary = "Obtener todos los recordatorio")
+    @ApiResponse(responseCode = "200", description = "Éxito al obtener todos los recordatorio",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Recordatorio.class))})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "403", description = "Acceso denegado debido a permisos insuficientes", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)})
+
+    @GetMapping()
     public List<Recordatorio> findAll() {
         return recordatorioService.findAll();
     }
