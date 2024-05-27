@@ -1,7 +1,6 @@
 package com.example.loginback.Security.Entity;
 
-import com.example.loginback.Entity.Person;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.loginback.Entity.Categoria;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +11,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -37,6 +34,10 @@ public class User implements UserDetails {
     String password;
     @Enumerated(EnumType.STRING)
     Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Categoria> categorias;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

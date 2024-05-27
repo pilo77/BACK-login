@@ -2,18 +2,16 @@ package com.example.loginback.Security.Service;
 
 import com.example.loginback.Security.Dto.UserDTO;
 
-import com.example.loginback.Security.Entity.Role;
 import com.example.loginback.Security.Entity.User;
 import com.example.loginback.Security.IRepository.UserRepository;
-import com.example.loginback.Security.Request.UserRequest;
-import com.example.loginback.Security.Response.UserResponse;
+import com.example.loginback.Security.Dto.UserRequest;
+import com.example.loginback.Security.Dto.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Optional;
 
 import java.util.stream.Collectors;
 

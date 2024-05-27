@@ -1,5 +1,5 @@
 <template>
-    <ion-searchbar placeholder="Buscar por Nombre: "></ion-searchbar>
+    <ion-searchbar placeholder="Buscar por Id: "></ion-searchbar>
   </template>
   
   <script lang="ts">

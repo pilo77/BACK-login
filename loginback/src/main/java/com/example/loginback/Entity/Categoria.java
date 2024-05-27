@@ -1,6 +1,7 @@
 package com.example.loginback.Entity;
 
 
+import com.example.loginback.Security.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,10 @@ public class Categoria {
     private String titulo;
     @Column(nullable = false)
     private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
 

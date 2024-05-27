@@ -4,10 +4,9 @@ import HomePage from '../views/HomePage.vue'
 import ClientePage from '../views/ClientePage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import DasboardPage from '../views/DasboardPage.vue'
-import ProductoPage from '@/views/ProductoPage.vue';
 import NotaPage from '@/views/NotaPage.vue';
-import UpdateNotaPage from '@/views/UpdateNotapage.vue';
 import ProximoPage from '@/views/ProximoPage.vue';
+import UpdateNotapage from '@/views/UpdateNotaPage.vue';
 import AdministradorPage from '@/views/AdministradorPage.vue';
 import EditarClientePage from '@/views/EditarClientePage.vue';
 import EliminarClientePage from '@/views/EliminarClientePage.vue';
@@ -37,11 +36,6 @@ const routes: Array<RouteRecordRaw> = [
     component: DasboardPage
   },
   {
-    path: '/producto',
-    name: 'Producto',
-    component: ProductoPage
-  },
-  {
     path: '/nota',
     name:'nota',
     component: NotaPage
@@ -49,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/actualizar',
     name: 'actualizar',
-    component: UpdateNotaPage
+    component: UpdateNotapage
   },
   {
     path: '/proximo',

@@ -15,8 +15,10 @@
             <TimeComponent></TimeComponent>
         </div>
         <h2>
+
             <ButtonComponent id="registrar" value="Agregar"  color= "success"></ButtonComponent>
-            <ButtonComponent id="editar" value="Editar"  color="warning"></ButtonComponent>
+            <ButtonComponent id="editar" value="Editar"  color="warning" @click="modificar"></ButtonComponent>
+            <ButtonComponent id= "select" value= "Atras" color="danger" expand="full" @click="atras"></ButtonComponent>
         </h2>
         </div>
       </ion-content>
@@ -28,6 +30,13 @@
   import ButtonComponent from '@/components/ButtonComponent.vue';
   import NotaComponent from '@/components/NotaComponent.vue';
   import TimeComponent from '@/components/TimeComponent.vue';
+
+  const atras = () => {
+    window.location.href = "/Dashboard"
+  }
+  const modificar = () => {
+    window.location.href = "actualizar"
+  }
   </script>
   
   <style scoped src="../theme/container.css"></style>
