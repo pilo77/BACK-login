@@ -30,8 +30,9 @@ public class Categoria {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recordatorio_id", nullable = false)
+    private Recordatorio recordatorio;
 
-    private Set<Recordatorio> recordatorio = new LinkedHashSet<>();
 
 }

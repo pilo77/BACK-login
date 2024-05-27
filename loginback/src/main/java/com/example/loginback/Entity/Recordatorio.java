@@ -31,9 +31,6 @@ public class Recordatorio {
     @Column
     private boolean activo;//si esta activo o inactivo el recordatorio
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "categoria", nullable = false)
-    private Categoria categoria;
 
 
 }
