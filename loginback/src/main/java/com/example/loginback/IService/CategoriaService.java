@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CategoriaService {
     Categoria save(Categoria categoria);
 
-    void update(Categoria categoria, Long id);
+    Categoria update(Long id, Categoria categoria);
 
     void delete(Long id);
 

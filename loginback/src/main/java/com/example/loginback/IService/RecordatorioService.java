@@ -1,7 +1,7 @@
 package com.example.loginback.IService;
 
-import com.example.loginback.Entity.Categoria;
-import com.example.loginback.IService.impl.Recordatorio;
+
+import com.example.loginback.Entity.Recordatorio;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,13 +10,15 @@ import java.util.Optional;
 public interface RecordatorioService {
     Recordatorio save(Recordatorio recordatorio);
 
-    void update(Recordatorio recordatorio, Long id);
+    Recordatorio update(Long id, Recordatorio recordatorio);
 
     void delete(Long id);
 
     Optional<Recordatorio> findById(Long id);
 
     List<Recordatorio> findAll();
+
+    Long countRecordatorios();
 
 
 }
