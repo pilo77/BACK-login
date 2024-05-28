@@ -16,8 +16,9 @@ public class RecordatorioServiceImpl implements RecordatorioService {
 
     @Override
     public List<Recordatorio> findAll() {
-        return recordatorioRepository.findAllActive();
+        return recordatorioRepository.findAll();
     }
+
 
     @Override
     public Recordatorio save(Recordatorio recordatorio) {
@@ -31,11 +32,11 @@ public class RecordatorioServiceImpl implements RecordatorioService {
             r.setTitulo(recordatorio.getTitulo());
             r.setDescripcion(recordatorio.getDescripcion());
             r.setFecha(recordatorio.getFecha());
-            r.setHora(recordatorio.getHora());
             return recordatorioRepository.save(r); // Guardar el objeto r actualizado, no el objeto recordatorio
         }
         return null;
     }
+
 
 
     @Override
@@ -44,17 +45,5 @@ public class RecordatorioServiceImpl implements RecordatorioService {
     }
 
 
-    @Override
-    public Long countRecordatorios() {
-        return recordatorioRepository.countActiveRecordatorios();
-    }
 
-    @Override
-    public void delete(Long id) {
-        Optional<Recordatorio> recordatorio = recordatorioRepository.findById(id);
-        recordatorio.ifPresent(r -> {
-            r.desactivar();
-            recordatorioRepository.save(r);
-        });
-    }
 }

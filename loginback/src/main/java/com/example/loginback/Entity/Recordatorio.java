@@ -23,17 +23,9 @@ public class Recordatorio {
     private String titulo;
     @Column(nullable = false)
     private String descripcion;
-    @Column(nullable = false)  // La fecha no puede ser nula
-    private LocalDate fecha;  // Día para el cual está programado el recordatorio
-
     @Column
-    private LocalTime hora;  // Hora específica del recordatorio
-    @Column
-    private boolean activo;//si esta activo o inactivo el recordatorio
+    private String fecha;  // Día para el cual está programado el recordatorio
 
-
-    public void desactivar() {
-        this.activo = false;
     }
 
-}
+

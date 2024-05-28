@@ -32,7 +32,7 @@
 import SeachComponent from '@/components/SeachComponent.vue';
 
   const atras = () => {
-    window.location.href = "/Dashboard"
+    window.location.href = "/dashboard"
   }
   </script>
   

@@ -31,8 +31,8 @@ public class JwtService {
         extraClaims.put("lastName", user.getLastname());
         extraClaims.put("role", user.getRole().name()); // Agregar el rol del usuario
         return getToken(extraClaims, user.getUsername());
-    }
 
+    }
     private String getToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims) // Agregar las reclamaciones al token

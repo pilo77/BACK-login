@@ -1,11 +1,13 @@
 package com.example.loginback.Security.IRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.loginback.Security.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,5 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Modifying
     @Query("update User u set u.firstname = :#{#user.firstname}, u.lastname = :#{#user.lastname}, u.country = :#{#user.country}, u.role = :#{#user.role} where u.id = :#{#user.id}")
     void updateUser(@Param("user") User user);
-
+    void deleteById(Integer id);
 }

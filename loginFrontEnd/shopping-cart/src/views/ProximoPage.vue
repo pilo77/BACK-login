@@ -15,7 +15,7 @@
 
     
       </ion-content>
-      <ButtonComponent id="select" value="Atras" expand="full" color="danger" @click="atras"></ButtonComponent>
+      <ButtonComponent id="select" value="Atras" expand="full" color="warning" @click="atras"></ButtonComponent>
     </ion-page>
   </template>
   

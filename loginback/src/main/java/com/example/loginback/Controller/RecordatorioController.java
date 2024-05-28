@@ -90,36 +90,8 @@ public class RecordatorioController {
     }
 
     //---------------------------------------------------------------------------
-    @Operation(summary = "eliminar recordatorio de la base de datos por id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Recordatorio eliminado con exito",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Recordatorio.class))
-                    }),
-            @ApiResponse(responseCode = "500", description = "Error de parametros", content = @Content),
 
-
-    })
-    @DeleteMapping("eliminar/{id}")
-    public void delete(@PathVariable Long id) {
-        recordatorioService.delete(id);
-    }
 
 //-------------------------------------------------------------------------------
 
-    @Operation(summary = "Contar el número total de recordatorios")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Éxito al obtener el número total de recordatorios",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Long.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "No se encontraron recordatorios",
-                    content = @Content)
-    })
-    @GetMapping("/count")
-    public Long countRecordatorios() {
-        return recordatorioService.countRecordatorios();
-    }
 }

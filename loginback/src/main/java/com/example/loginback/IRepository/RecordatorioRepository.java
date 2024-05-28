@@ -9,9 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RecordatorioRepository extends JpaRepository<Recordatorio, Long> {
-    @Query("SELECT r FROM Recordatorio r WHERE r.activo = true")
-    List<Recordatorio> findAllActive();
 
-    @Query("SELECT COUNT(r) FROM Recordatorio r WHERE r.activo = true")
-    Long countActiveRecordatorios();
 }

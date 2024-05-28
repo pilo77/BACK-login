@@ -5,8 +5,7 @@
         <ion-title>Dashboard</ion-title>
       </ion-toolbar>
     </ion-header>
-
-    <ion-content>
+        <ion-content>
       <br>
       <div id="container">
         <strong><a href="/nota">Crear Nota</a></strong>

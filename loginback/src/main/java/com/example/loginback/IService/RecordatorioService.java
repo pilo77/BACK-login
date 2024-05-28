@@ -12,13 +12,10 @@ public interface RecordatorioService {
 
     Recordatorio update(Long id, Recordatorio recordatorio);
 
-    void delete(Long id);
-
     Optional<Recordatorio> findById(Long id);
 
     List<Recordatorio> findAll();
 
-    Long countRecordatorios();
 
 
 }

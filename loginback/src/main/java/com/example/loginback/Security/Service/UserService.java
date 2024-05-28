@@ -67,4 +67,11 @@ public class UserService {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public UserResponse deleteUserById(Integer id) {
+        userRepository.deleteById(id);
+        return new UserResponse("El usuario fue eliminado satisfactoriamente");
+    }
 }
+

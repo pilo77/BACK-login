@@ -28,24 +28,38 @@ import { IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import InputComponent from '@/components/InputComponent.vue';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 
 
+
+
+// Interfaz para el payload decodificado
+interface DecodedToken {
+  role: string;
+}
 
 const baseURL = 'http://localhost:9000/recordatorioG/auth/login';
 
 const username = ref('');
 const password = ref('');
 
-
-
 const newUser = () => {
   window.location.href = '/cliente';
 };
 
+const obtenerRolDesdeToken = (token: string): string | null => {
+  try {
+    localStorage.setItem('token', token);
+    const decodedToken = jwtDecode<DecodedToken>(token);
+    return decodedToken.role;
+  } catch (error) {
+    console.error('Error al decodificar el token:', error);
+    return null;
+  }
+};
 
 const login = async () => {
-
   if (!username.value || !password.value) {
     alert('Por favor, ingrese su usuario y contraseña');
     return;
@@ -57,11 +71,12 @@ const login = async () => {
       password: password.value,
     });
 
-    const { token, role } = response.data;
+    const { token } = response.data;
 
     localStorage.setItem('token', token);
 
-  
+    const role = obtenerRolDesdeToken(token);
+
     if (role === 'ADMIN') {
       window.location.href = '/administrador';
     } else if (role === 'USER') {
@@ -72,7 +87,7 @@ const login = async () => {
   } catch (error) {
     console.error('Error en el inicio de sesión:', error);
   }
-};
+}
 </script>
 
 <style scoped src="../theme/login.css"></style>
