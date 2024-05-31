@@ -12,17 +12,12 @@
           <br>
           <br>
           <div class="flex-row">
-            <div class="item-container">
-              <ItemComponent label="Buscar Usuarios" type="buscarUser"></ItemComponent>
-            </div>
-            <div class="button-container">
-              <ButtonComponent id="buscarUsuario" value="ir" expand="block" color="success" ></ButtonComponent>
-            </div>
+ 
           </div>
           <br>
           <div class="flex-row">
             <div class="item-container">
-              <ItemComponent id= "editar" value= "editar" label="Editar Usuarios" type="editarUser"></ItemComponent>
+              <ItemComponent id= "editar" label="Editar Usuarios" type="editarUser"></ItemComponent>
             </div>
             <div class="button-container">
               <ButtonComponent id="editarUsuario" value="ir" expand="block" color="warning" @click="editarUser"></ButtonComponent>
@@ -31,7 +26,7 @@
           <br>
           <div class="flex-row">
             <div class="item-container">
-              <ItemComponent id= "eliminar" value= "eliminar" label="Eliminar Usuarios" type="eliminarUser"></ItemComponent>
+              <ItemComponent id= "eliminar"  label="Ver y Eliminar Usuarios" type="eliminarUser"></ItemComponent>
             </div>
             <div class="button-container">
               <ButtonComponent id="eliminarUsuario" value="ir" expand="block" color="warning" @click="eliminarUser"></ButtonComponent>

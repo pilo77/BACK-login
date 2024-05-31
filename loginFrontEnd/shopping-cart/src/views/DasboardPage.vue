@@ -10,7 +10,7 @@
       <div id="container">
         <strong><a href="/nota">Crear Nota</a></strong>
         <br>
-        <strong><a href="/proximo">Notas Creadas</a></strong>
+        <strong><a href="/editarNota">Notas Creadas</a></strong>
         <br>
       
       </div>

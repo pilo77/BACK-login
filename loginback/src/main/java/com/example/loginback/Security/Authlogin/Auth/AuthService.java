@@ -1,5 +1,7 @@
 package com.example.loginback.Security.Authlogin.Auth;
 
+import com.example.loginback.Entity.Recordatorio;
+import com.example.loginback.IRepository.RecordatorioRepository;
 import com.example.loginback.Security.Authlogin.Jwt.JwtService;
 
 import com.example.loginback.Security.Entity.Role;
@@ -19,6 +21,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final RecordatorioRepository RecordatorioRepository;
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(
@@ -51,5 +54,53 @@ public class AuthService {
                 .build();
 
     }
+    public Recordatorio saveRecordatorio(RecordatorioRequest recordatorioRequest, String token) {
+        String username = jwtService.getUsernameFromToken(token);
+        User user = userRepository.findByUsername(username).orElseThrow();
+
+        Recordatorio recordatorio = Recordatorio.builder()
+                .titulo(recordatorioRequest.getTitulo())
+                .descripcion(recordatorioRequest.getDescripcion())
+                .fecha(recordatorioRequest.getFecha())
+                .build();
+
+        return RecordatorioRepository.save(recordatorio);
+    }
+    public Recordatorio updateRecordatorio(Long id, RecordatorioRequest request, String token) {
+        String username = jwtService.getUsernameFromToken(token);
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Recordatorio recordatorio = RecordatorioRepository.findById(id).orElseThrow(() -> new RuntimeException("Recordatorio not found"));
+
+        /* Verificar que el usuario sea el propietario del recordatorio
+        if (!recordatorio.getUser().equals(user)) {
+            throw new RuntimeException("User does not own this recordatorio");
+        }  */
+
+        // Actualizar el recordatorio con los nuevos datos
+        recordatorio.setTitulo(request.getTitulo());
+        recordatorio.setDescripcion(request.getDescripcion());
+        recordatorio.setFecha(request.getFecha());
+
+        // Guardar el recordatorio actualizado
+        return RecordatorioRepository.save(recordatorio);
+    }
+
+    public void deleteRecordatorio(Long id, String token) {
+        String username = jwtService.getUsernameFromToken(token);
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Recordatorio recordatorio = RecordatorioRepository.findById(id).orElseThrow(() -> new RuntimeException("Recordatorio not found"));
+
+        /* Verificar que el usuario sea el propietario del recordatorio
+        if (!recordatorio.getUser().equals(user)) {
+            throw new RuntimeException("User does not own this recordatorio");
+        } */
+
+        // Eliminar el recordatorio
+        RecordatorioRepository.delete(recordatorio);
+    }
+
+
 
 }

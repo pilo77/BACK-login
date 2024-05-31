@@ -1,6 +1,7 @@
 package com.example.loginback.Security.Entity;
 
 import com.example.loginback.Entity.Categoria;
+import com.example.loginback.Entity.Recordatorio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

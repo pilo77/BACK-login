@@ -20,6 +20,7 @@
         <br>
         <div>
           <ButtonComponent id="editar" value="Actualizar Usuario" expand="full" color="warning" @click="updateUser"></ButtonComponent>
+          <ButtonComponent id="atras" value="Atras" color="danger" @click="salir"></ButtonComponent>
         </div>
       </div>
     </ion-content>
@@ -36,7 +37,9 @@ import SeachComponent from '@/components/SeachComponent.vue';
 import axios from 'axios';
 const baseURL = 'http://localhost:9000/recordatorioG';
 
-
+const salir = () => {
+  window.location.href = "/administrador"
+}
 // Estado del usuario
 const user = ref({
   id: 0,

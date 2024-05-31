@@ -1,5 +1,6 @@
 package com.example.loginback.Entity;
 
+import com.example.loginback.Security.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,8 +25,8 @@ public class Recordatorio {
     @Column(nullable = false)
     private String descripcion;
     @Column
-    private String fecha;  // Día para el cual está programado el recordatorio
+    private String fecha;
 
-    }
+}
 
 

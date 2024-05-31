@@ -1,5 +1,6 @@
 package com.example.loginback.Security.Authlogin.Auth;
 
+import com.example.loginback.Entity.Recordatorio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -46,4 +47,29 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
     }
 
+    //--------------------------------------------------------------------------------------------------
+    @PostMapping("/recordatorio")
+    public ResponseEntity<Recordatorio> saveRecordatorio(@RequestBody RecordatorioRequest request,
+                                                         @RequestHeader("Authorization") String token) {
+        String jwtToken = token.substring(7);// Eliminar "Bearer " del token
+        Recordatorio recordatorio = authService.saveRecordatorio(request, jwtToken);
+        return ResponseEntity.ok(recordatorio);
+    }
+    //--------------------------------------------------------------------------------------------------
+    @PutMapping("/recordatorio/{id}")
+    public ResponseEntity<Recordatorio> updateRecordatorio(@PathVariable Long id,
+                                                           @RequestBody RecordatorioRequest request,
+                                                           @RequestHeader("Authorization") String token) {
+        String jwtToken = token.substring(7); // Eliminar "Bearer " del token
+        Recordatorio recordatorio = authService.updateRecordatorio(id, request, jwtToken);
+        return ResponseEntity.ok(recordatorio);
+    }
+    //--------------------------------------------------------------------------------------------------
+    @DeleteMapping("/recordatorio/{id}")
+    public ResponseEntity<Void> deleteRecordatorio(@PathVariable Long id,
+                                                   @RequestHeader("Authorization") String token) {
+        String jwtToken = token.substring(7); // Eliminar "Bearer " del token
+        authService.deleteRecordatorio(id, jwtToken);
+        return ResponseEntity.noContent().build();
+    }
 }

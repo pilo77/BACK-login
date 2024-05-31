@@ -11,7 +11,7 @@
           <InputComponent v-model="titulo" id="titulo" name="titulo" label="Titulo: "></InputComponent>
           <InputComponent v-model="descripcion" id="descripcion" name="descripcion" label="Descripcion: "></InputComponent>
           <InputComponent v-model="fecha" id="fecha" name="fecha" label="Fecha: "></InputComponent>
-          <InputComponent id ="horaa" name="horaa" label="Hora: "></InputComponent>
+           
         </div>
         <div>
           <TimeComponent></TimeComponent>
@@ -34,7 +34,7 @@ import TimeComponent from '@/components/TimeComponent.vue';
 import InputComponent from '@/components/InputComponent.vue';
 import axios from 'axios';
 
-const baseURL = 'http://localhost:9000/recordatorioG/api/recordatorio/guardar';
+const baseURL = 'http://localhost:9000/recordatorioG/auth/recordatorio';
 
 const titulo = ref('');
 const descripcion = ref('');

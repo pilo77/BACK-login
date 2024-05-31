@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
+@PreAuthorize("hasRole('USER')")
 @RequestMapping("/api/recordatorio")
 @RequiredArgsConstructor
 public class RecordatorioController {

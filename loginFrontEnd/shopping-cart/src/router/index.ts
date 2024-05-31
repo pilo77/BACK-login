@@ -10,6 +10,7 @@ import UpdateNotapage from '@/views/UpdateNotaPage.vue';
 import AdministradorPage from '@/views/AdministradorPage.vue';
 import EditarClientePage from '@/views/EditarClientePage.vue';
 import EliminarClientePage from '@/views/EliminarClientePage.vue';
+import EditarNotaPage from '@/views/EditarNotaPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,9 +24,9 @@ const routes: Array<RouteRecordRaw> = [
   },{
     path: '/cliente',
     name: 'Cliente',
-    component: ClientePage
-  },
-  {
+    component: ClientePage 
+  }, 
+  { 
     path: '/login',
     name: 'Login',
     component: LoginPage
@@ -64,7 +65,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/eliminarUser',
     name: 'eliminarUser',
     component: EliminarClientePage
-  }
+  },
+  {
+    path: '/editarNota',
+    name: 'editarNota',
+    component: EditarNotaPage
+    }
 ]
 
 const router = createRouter({

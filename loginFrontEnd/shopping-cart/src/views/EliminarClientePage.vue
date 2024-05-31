@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Editar Usuario</ion-title>
+        <ion-title>Eliminar Usuario</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -10,7 +10,7 @@
       <div id="login-container">
         <ion-card v-for="user in users" :key="user.id" color="light">
           <IonCardContent>
-          <IonText>{{user.firstname}} {{user.lastname}} </IonText>
+          <IonText>{{ user.id }} {{user.firstname}} {{user.lastname}} </IonText>
           <ButtonComponent id="eliminar" value="Eliminar" @click="deleteUser(user.id)"/>
         </IonCardContent>
         

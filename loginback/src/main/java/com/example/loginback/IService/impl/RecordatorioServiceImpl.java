@@ -4,6 +4,7 @@ import com.example.loginback.Entity.Recordatorio;
 import com.example.loginback.IRepository.RecordatorioRepository;
 import com.example.loginback.IService.RecordatorioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RecordatorioServiceImpl implements RecordatorioService {
+    @Autowired
     private RecordatorioRepository recordatorioRepository;
 
     @Override
