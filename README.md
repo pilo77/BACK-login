@@ -33,72 +33,45 @@ Technologies used:
   - TypeScript
   - HTML 5/CSS 3
 
-    ## Diagrama de Componentes
 
-### Componentes
+# Diagrama de Componentes
 
-#### Front-End
-- **Descripción**: Interfaz de usuario donde los administradores interactúan con el sistema para gestionar profesores, horarios y salones.
-- **Tecnologías**: React, Angular, Vue.js
+```mermaid
+graph TD
+    subgraph "Sistema de Gestión de Horarios"
+        FrontEnd["Frontend"]
+        API["API"]
+        AdminController["Admin Controller"]
+        SecurityComponent["Security Component"]
+        ScheduleManagement["Schedule Management"]
+        EmailService["Email Service"]
+        WhatsAppService["WhatsApp Service"]
+        PDFExport["PDF Export"]
+    end
 
-#### API
-- **Descripción**: Punto de entrada para todas las solicitudes del cliente. Proporciona endpoints para gestionar profesores, horarios y salones.
-- **Tecnologías**: Node.js, Express, Django, Flask
+    subgraph "Sistemas Externos"
+        ExternalEmailService["External Email Service"]
+        ExternalWhatsAppService["External WhatsApp Service"]
+    end
 
-#### Controlador de Autenticación
-- **Descripción**: Maneja la autenticación de los administradores. Verifica las credenciales y emite tokens de sesión.
-- **Tecnologías**: JWT, OAuth
+    FrontEnd -->|HTTP Requests| API
+    API -->|Authentication| SecurityComponent
+    SecurityComponent -->|Handles| AdminController
+    AdminController -->|Manages| ScheduleManagement
+    ScheduleManagement -->|Sends Notifications| EmailService
+    ScheduleManagement -->|Sends Notifications| WhatsAppService
+    EmailService -->|Uses| ExternalEmailService
+    WhatsAppService -->|Uses| ExternalWhatsAppService
+    ScheduleManagement -->|Exports| PDFExport
 
-#### Componente de Gestión de Profesores
-- **Descripción**: Gestiona la información de los profesores, incluyendo la carga académica y los contratos.
-- **Tecnologías**: Servicios REST, base de datos relacional
-
-#### Componente de Gestión de Horarios
-- **Descripción**: Administra la asignación de horarios a los profesores y evita solapamientos.
-- **Tecnologías**: Servicios REST, algoritmos de planificación
-
-#### Componente de Gestión de Salones
-- **Descripción**: Administra la disponibilidad y asignación de salones.
-- **Tecnologías**: Servicios REST, base de datos relacional
-
-#### Sistema de Notificaciones
-- **Descripción**: Envía notificaciones por correo electrónico y WhatsApp a los profesores con sus horarios.
-- **Tecnologías**: Servicios de correo electrónico, APIs de WhatsApp
-
-### Relaciones
-
-- **Front-End** interactúa con **API** para realizar operaciones.
-- **API** se comunica con **Controlador de Autenticación** para manejar la autenticación.
-- **API** delega a los componentes **Gestión de Profesores**, **Gestión de Horarios** y **Gestión de Salones** las operaciones correspondientes.
-- **Componente de Gestión de Profesores** interactúa con **Base de Datos** para almacenar y recuperar información sobre los profesores.
-- **Componente de Gestión de Horarios** usa **Base de Datos** para gestionar los horarios.
-- **Componente de Gestión de Salones** usa **Base de Datos** para gestionar los salones.
-- **Sistema de Notificaciones** es utilizado por **API** para enviar notificaciones a los profesores.
-
-### Diagrama
-
-```plaintext
-+------------------+       +-------------+       +---------------------------+
-|   Front-End      | ----> |     API      | ----> |   Controlador de Autenticación |
-+------------------+       +-------------+       +---------------------------+
-                                    |
-                                    v
-                        +----------------------------+
-                        | Componente de Gestión de Profesores |
-                        +----------------------------+
-                                    |
-                                    v
-                        +----------------------------+
-                        | Componente de Gestión de Horarios |
-                        +----------------------------+
-                                    |
-                                    v
-                        +----------------------------+
-                        | Componente de Gestión de Salones |
-                        +----------------------------+
-                                    |
-                                    v
-                        +----------------------------+
-                        |   Sistema de Notificaciones   |
-                        +----------------------------+
+    style FrontEnd fill:#f9f,stroke:#333,stroke-width:2px;
+    style API fill:#ccf,stroke:#333,stroke-width:2px;
+    style AdminController fill:#cfc,stroke:#333,stroke-width:2px;
+    style SecurityComponent fill:#fcf,stroke:#333,stroke-width:2px;
+    style ScheduleManagement fill:#ff9,stroke:#333,stroke-width:2px;
+    style EmailService fill:#9ff,stroke:#333,stroke-width:2px;
+    style WhatsAppService fill:#f9f,stroke:#333,stroke-width:2px;
+    style PDFExport fill:#cfc,stroke:#333,stroke-width:2px;
+    style ExternalEmailService fill:#fdd,stroke:#333,stroke-width:2px;
+    style ExternalWhatsAppService fill:#ddf,stroke:#333,stroke-width:2px;
 
